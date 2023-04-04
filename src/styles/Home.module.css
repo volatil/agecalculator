@@ -17,7 +17,7 @@
 .ingresadatos > form > label > p {
 	margin: 0;
 	padding: 0;
-	color: #999;
+	color: #777;
 	font-weight: 700;
 	font-size: .9em;
 	margin-bottom: 10px;
@@ -29,18 +29,52 @@
 	color: #999;
 	padding: 10px;
 	border-radius: 8px;
-	border: 1px solid #999;
+	border: 1px solid #ccc;
 	height: 40px;
+	font-weight: 600;
 }
 .ingresadatos > form > label > input::placeholder {
 	font-weight: 600;
 	color: #999;
 }
+.ingresadatos > form > label.year > input {
+	width: 100px;
+}
 
 
 
 
-
+.accion {
+	display: flex;
+	align-items: center;
+}
+.accion > span {
+	height: 1px;
+	background-color: #ddd;
+	width: 100%;
+	display: block;
+}
+.accion > button {
+	background-color: var(--morado);
+	border: none;
+	width: 80px;
+	/* height: 70px; */
+	border-radius: 50%;
+	cursor: pointer;
+	padding: 15px;
+	-webkit-transition: all 0.2s ease-out;
+	-moz-transition:    all 0.2s ease-out;
+	-o-transition:      all 0.2s ease-out;
+	transition:         all 0.2s ease-out;
+}
+.accion > button:hover {
+	background-color: var(--moradoHover);
+}
+.accion > button > img {
+	width: 100%;
+	border: none;
+	border: none;
+}
 
 
 
@@ -52,6 +86,8 @@
 .resultados > div {
 	display: flex;
 	align-items: center;
+	font-size: 2em;
+	height: 120px;
 }
 .resultados > div > span {
 	color: var(--morado);

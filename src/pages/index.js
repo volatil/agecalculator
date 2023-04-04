@@ -25,16 +25,16 @@ export default function Home() {
 							<p>MONTH</p>
 							<input type="number" id="month" placeholder="MM" />
 						</label>
-						<label htmlFor="year">
+						<label className={css.year} htmlFor="year">
 							<p>YEAR</p>
-							<input type="number" id="year" placeholder="YY" />
+							<input type="number" id="year" placeholder="YYYY" />
 						</label>
 					</form>
 				</section>
-				<section id="accion">
+				<section id="accion" className={css.accion}>
 					<span className="separador" />
 					<button type="button">
-						<img style={{ width: "100px", background: "red", border: "none" }} src="/assets/svg/arrow.svg" alt="Calculate" />
+						<img src="/assets/svg/arrow.svg" alt="Calculate" />
 					</button>
 				</section>
 				<section id="resultados" className={css.resultados}>
