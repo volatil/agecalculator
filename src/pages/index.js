@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
@@ -5,7 +7,35 @@ import css from "../styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// const Separador = function () {
+// 	return (
+// 	);
+// };
+
 export default function Home() {
+	const [dias, setdias] = useState("");
+	const [meses, setmeses] = useState();
+	const [anos, setanos] = useState();
+
+	const getDias = function (param) {
+		const elparam = param.target.value;
+		setdias(elparam);
+	};
+
+	const getMes = function (param) {
+		const elparam = param.target.value;
+		setmeses(elparam);
+	};
+
+	const getAno = function (param) {
+		const elparam = param.target.value;
+		setanos(elparam);
+	};
+
+	const calcular = function () {
+		console.debug( `Algo ${dias}/${meses}/${anos}` );
+	};
+
 	return (
 		<>
 			<Head>
@@ -15,25 +45,26 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main id={css.main}>
+				<h1>{dias && dias}/{meses && meses}/{anos && anos}</h1>
 				<section id="ingresadatos" className={css.ingresadatos}>
 					<form>
 						<label htmlFor="day">
 							<p>DAY</p>
-							<input type="number" id="day" placeholder="DD" />
+							<input type="number" id="day" placeholder="DD" onChange={getDias} />
 						</label>
 						<label htmlFor="month">
 							<p>MONTH</p>
-							<input type="number" id="month" placeholder="MM" />
+							<input type="number" id="month" placeholder="MM" onChange={getMes} />
 						</label>
 						<label className={css.year} htmlFor="year">
 							<p>YEAR</p>
-							<input type="number" id="year" placeholder="YYYY" />
+							<input type="number" id="year" placeholder="YYYY" onChange={getAno} />
 						</label>
 					</form>
 				</section>
 				<section id="accion" className={css.accion}>
 					<span className="separador" />
-					<button type="button">
+					<button type="button" onClick={calcular}>
 						<img src="/assets/svg/arrow.svg" alt="Calculate" />
 					</button>
 				</section>
