@@ -89,6 +89,12 @@
 	font-size: 2em;
 	height: 120px;
 }
+.resultados > span {
+	font-size: 2em;
+	font-weight: 400;
+	color: #888;
+	font-style: italic;
+}
 .resultados > div > span {
 	color: var(--morado);
 	font-weight: 900;
@@ -102,4 +108,31 @@
 	font-size: 3em;
 	margin: 0 0 0 10px;
 	padding: 0;
+}
+
+
+
+
+
+@media ( max-width: 850px ) {
+	#main {
+		width: 80%;
+		padding-bottom: 60px;
+		margin-top: 40px;
+	}
+	.ingresadatos > form > label > input {
+		width: 50px;
+	}
+	.ingresadatos > form > label.year > input {
+		width: 80px;
+	}
+	.resultados > div {
+		font-size: .9em;
+		height: 70px;
+	}
+	.resultados > span {
+		height: 60px;
+		display: flex;
+		align-items: center;
+	}
 }

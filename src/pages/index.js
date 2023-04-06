@@ -3,22 +3,31 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
+
+import Error from "../components/Error";
+
 import css from "../styles/Home.module.css";
-import { calculaSegundos } from "../helpers/calculatiempo";
+import {
+	calculaAnos,
+	calculaMeses,
+	calculaDias,
+	calculaHoras,
+	calculaMinutos,
+	calculaSegundos,
+} from "../helpers/calculatiempo";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Titulo = function (props) {
-	const { nombretiempo, tiempo } = props;
-	return (
-		<h1>{nombretiempo}: {tiempo}</h1>
-	);
-};
-
 export default function Home() {
-	const [dias, setdias] = useState("");
+	const [dias, setdias] = useState();
 	const [meses, setmeses] = useState();
 	const [anos, setanos] = useState();
+	const [isError, setisError] = useState(false);
+
+	// const [horasListos, sethorasListos] = useState("--");
+	const [diasListos, setdiasListos] = useState("--");
+	const [mesesListos, setmesesListos] = useState("--");
+	const [anosListos, setanosListos] = useState("--");
 
 	const getDias = function (param) {
 		const elparam = param.target.value;
@@ -36,11 +45,33 @@ export default function Home() {
 	};
 
 	const calcular = function () {
-		console.debug( `Algo ${dias}/${meses}/${anos}` );
-	};
+		const isUndefined = String(dias) + String(meses) + String(anos);
+		if ( isUndefined.includes("undefined") ) {
+			setisError(true);
+			setTimeout(() => {
+				setisError(false);
+			}, 3000);
+		} else if ( (meses <= 12) && ( dias <= 31 ) ) {
+			const fecha = new Date();
+			const fechatermino = {
+				dia: fecha.getDate(),
+				mes: fecha.getMonth(),
+				ano: fecha.getFullYear(),
+				horas: fecha.getHours(),
+				minutos: fecha.getMinutes(),
+				segundos: fecha.getSeconds(),
+			};
+			let fechaterminocompleta = `${fechatermino.ano}-${fechatermino.mes + 1}-${fechatermino.dia} ${fechatermino.horas}:${fechatermino.minutos}:${fechatermino.segundos}`;
+			fechaterminocompleta = new Date(fechaterminocompleta);
 
-	const inicio = new Date("1989-03-01 22:00:00");
-	const termino = new Date("2023-04-06 00:27:23");
+			let fechainiciocompleta = `${Number(anos)}-${Number(meses)}-${Number(dias)} ${Number(23)}:${Number(12)}:${Number(23)}`;
+			fechainiciocompleta = new Date(fechainiciocompleta);
+			setanosListos( calculaAnos( fechainiciocompleta, fechaterminocompleta) );
+			setmesesListos( calculaMeses( fechainiciocompleta, fechaterminocompleta) );
+			setdiasListos( calculaDias( fechainiciocompleta, fechaterminocompleta) );
+			// sethorasListos( calculaHoras( fechainiciocompleta, fechaterminocompleta) );
+		}
+	};
 
 	return (
 		<>
@@ -50,12 +81,8 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			{isError && <Error /> }
 			<main id={css.main}>
-				<Titulo nombretiempo="segundos" tiempo={calculaSegundos(inicio, termino)} />
-				<br />
-				<br />
-				<br />
-				<br />
 				<section id="ingresadatos" className={css.ingresadatos}>
 					<form>
 						<label htmlFor="day">
@@ -80,17 +107,24 @@ export default function Home() {
 				</section>
 				<section id="resultados" className={css.resultados}>
 					<div className="year">
-						<span>--</span>
+						<span>{anosListos}</span>
 						<p>years</p>
 					</div>
+					<span>or</span>
 					<div className="month">
-						<span>--</span>
+						<span>{mesesListos}</span>
 						<p>months</p>
 					</div>
+					<span>or</span>
 					<div className="day">
-						<span>--</span>
+						<span>{diasListos}</span>
 						<p>days</p>
 					</div>
+					{/* <span>or</span>
+					<div className="hour">
+						<span>{horasListos}</span>
+						<p>hours</p>
+					</div> */}
 				</section>
 			</main>
 		</>
