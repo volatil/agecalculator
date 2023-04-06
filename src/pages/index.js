@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import css from "../styles/Home.module.css";
+import { calculaSegundos } from "../helpers/calculatiempo";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// const Separador = function () {
-// 	return (
-// 	);
-// };
+const Titulo = function (props) {
+	const { nombretiempo, tiempo } = props;
+	return (
+		<h1>{nombretiempo}: {tiempo}</h1>
+	);
+};
 
 export default function Home() {
 	const [dias, setdias] = useState("");
@@ -36,6 +39,9 @@ export default function Home() {
 		console.debug( `Algo ${dias}/${meses}/${anos}` );
 	};
 
+	const inicio = new Date("1989-03-01 22:00:00");
+	const termino = new Date("2023-04-06 00:27:23");
+
 	return (
 		<>
 			<Head>
@@ -45,7 +51,11 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main id={css.main}>
-				<h1>{dias && dias}/{meses && meses}/{anos && anos}</h1>
+				<Titulo nombretiempo="segundos" tiempo={calculaSegundos(inicio, termino)} />
+				<br />
+				<br />
+				<br />
+				<br />
 				<section id="ingresadatos" className={css.ingresadatos}>
 					<form>
 						<label htmlFor="day">
